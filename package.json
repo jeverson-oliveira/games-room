@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "deploy": "ng build --configuration production --base-href /games-room/ && npx angular-cli-ghpages --dir=docs"
+    "deploy": "ng build --configuration production --base-href /games-room/ && rm -rf docs && cp -r dist/games-room/browser docs && cp dist/games-room/3rdpartylicenses.txt docs/ 2>/dev/null || true && touch docs/.nojekyll && echo 'Build copiado para docs/ - pronto para push no GitHub Pages (source: /docs)'"
   },
   "private": true,
   "dependencies": {
