@@ -1,4 +1,5 @@
 <app-filters
+  (filtersChange)="onFiltersChange($event)"
   (platformSelected)="filterByPlatform($event)"
   (genreSelected)="filterByGenre($event)">
 </app-filters>
@@ -18,12 +19,16 @@
     <p>⚠️ {{ errorMessage() }}</p>
     <button (click)="retry()">Tentar novamente</button>
   </div>
-} @else if (games().length === 0) {
+} @else if (filteredGames().length === 0) {
   <div class="state state--empty">
     <p>Nenhum jogo encontrado para este filtro.</p>
-    <button (click)="loadGames()">Limpar filtros</button>
+    <button (click)="clearFilters()">Limpar filtros</button>
   </div>
 } @else {
+  <div class="game-list__meta" aria-live="polite">
+    <span>{{ totalFiltered() }} jogos encontrados</span>
+    @if (filterState().search) { <span> — busca: "{{ filterState().search }}"</span> }
+  </div>
   <div class="game-list">
     @for (game of games(); track game.id) {
       <div [routerLink]="['/game', game.id]" class="game-list__link">
@@ -31,4 +36,9 @@
       </div>
     }
   </div>
+  @if (canLoadMore()) {
+    <div class="game-list__more">
+      <button (click)="loadMore()">Carregar mais ({{ totalFiltered() - visibleCount() }} restantes)</button>
+    </div>
+  }
 }

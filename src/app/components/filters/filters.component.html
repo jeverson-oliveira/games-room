@@ -1,18 +1,38 @@
-<div class="filters">
-  <label>Plataforma:</label>
-  <select (change)="onPlatformChange($event)">
-    <option disabled selected>Escolha uma plataforma</option>
-    @for (p of platforms; track p) {
-      <option [value]="p">{{ p }}</option>
-    }
-  </select>
+<div class="filters" role="search" aria-label="Filtros de jogos">
+  <div class="filters__group">
+    <label for="filter-platform">Plataforma:</label>
+    <select id="filter-platform" [value]="platform()" (change)="onPlatformChange($event)" aria-label="Filtrar por plataforma">
+      <option value="">Todas</option>
+      @for (p of platforms; track p) {
+        <option [value]="p">{{ p }}</option>
+      }
+    </select>
+  </div>
 
-  <label>Gênero:</label>
-  <select (change)="onGenreChange($event)">
-    <option disabled selected>Escolha um gênero</option>
-    @for (g of genres; track g) {
-      <option [value]="g">{{ g }}</option>
-    }
-  </select>
+  <div class="filters__group">
+    <label for="filter-genre">Gênero:</label>
+    <select id="filter-genre" [value]="genre()" (change)="onGenreChange($event)" aria-label="Filtrar por gênero">
+      <option value="">Todos</option>
+      @for (g of genres; track g) {
+        <option [value]="g">{{ g }}</option>
+      }
+    </select>
+  </div>
+
+  <div class="filters__group filters__group--search">
+    <label for="filter-search">Buscar:</label>
+    <input
+      id="filter-search"
+      type="search"
+      placeholder="Nome do jogo..."
+      [ngModel]="search()"
+      (ngModelChange)="onSearchChange($event)"
+      aria-label="Buscar por nome"
+    />
+  </div>
+
+  @if (hasActiveFilters()) {
+    <button class="filters__clear" (click)="clearFilters()" aria-label="Limpar filtros">✕ Limpar</button>
+  }
 </div>
 

@@ -1,25 +1,31 @@
 .filters {
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
   padding: 1rem;
   background: #111;
   border-bottom: 2px solid #0ff;
   justify-content: center;
+  align-items: end;
   flex-wrap: wrap;
 
   label {
     color: #0ff;
     font-family: 'Orbitron', sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
   }
 
-  select {
+  select,
+  input[type="search"] {
     background-color: #222;
     color: #0ff;
     border: 1px solid #0ff;
     padding: 0.5rem 1rem;
     font-family: 'Orbitron', sans-serif;
     border-radius: 4px;
+    min-width: 180px;
 
     option {
       background-color: #111;
@@ -29,5 +35,42 @@
       outline: none;
       box-shadow: 0 0 5px #0ff;
     }
+
+    &::placeholder {
+      color: #666;
+    }
+  }
+
+  input[type="search"] {
+    min-width: 220px;
+  }
+}
+
+.filters__group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.filters__group--search {
+  min-width: 220px;
+}
+
+.filters__clear {
+  background: transparent;
+  color: #ff6b6b;
+  border: 1px solid #ff6b6b;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: 0.3s;
+  align-self: end;
+
+  &:hover {
+    background: #ff6b6b;
+    color: #fff;
+    box-shadow: 0 0 8px #ff6b6b;
   }
 }
