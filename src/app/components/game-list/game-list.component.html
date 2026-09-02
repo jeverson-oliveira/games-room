@@ -3,8 +3,30 @@
   (genreSelected)="filterByGenre($event)">
 </app-filters>
 
-<div class="game-list">
-  @for (game of games; track game.id) {
-    <app-game-card [game]="game"></app-game-card>
-  }
-</div>
+@if (isLoading()) {
+  <div class="state state--loading" role="status" aria-live="polite">
+    <div class="spinner" aria-hidden="true"></div>
+    <p>Carregando jogos...</p>
+    <div class="skeleton-grid">
+      @for (i of [1,2,3,4,5,6]; track i) {
+        <div class="skeleton-card"></div>
+      }
+    </div>
+  </div>
+} @else if (errorMessage()) {
+  <div class="state state--error" role="alert">
+    <p>⚠️ {{ errorMessage() }}</p>
+    <button (click)="retry()">Tentar novamente</button>
+  </div>
+} @else if (games().length === 0) {
+  <div class="state state--empty">
+    <p>Nenhum jogo encontrado para este filtro.</p>
+    <button (click)="loadGames()">Limpar filtros</button>
+  </div>
+} @else {
+  <div class="game-list">
+    @for (game of games(); track game.id) {
+      <app-game-card [game]="game"></app-game-card>
+    }
+  </div>
+}

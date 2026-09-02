@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-
+import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
+import { Game } from '../../models/game.model';
 import { GameService } from '../../services/game.service';
 import { FiltersComponent } from '../filters/filters.component';
 import { GameCardComponent } from '../game-card/game-card.component';
@@ -9,10 +9,13 @@ import { GameCardComponent } from '../game-card/game-card.component';
   standalone: true,
   imports: [FiltersComponent, GameCardComponent],
   templateUrl: './game-list.component.html',
-  styleUrls: ['./game-list.component.scss']
+  styleUrls: ['./game-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GameListComponent implements OnInit {
-  games: any[] = [];
+  games = signal<Game[]>([]);
+  isLoading = signal(false);
+  errorMessage = signal<string | null>(null);
 
   constructor(private gameService: GameService) {}
 
@@ -21,37 +24,54 @@ export class GameListComponent implements OnInit {
   }
 
   loadGames() {
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
     this.gameService.getAllGames().subscribe({
       next: (data) => {
-        console.log('Games loaded:', data);
-        this.games = data;
+        this.games.set(data);
+        this.isLoading.set(false);
       },
-      error: (error) => {
-        console.error('Error loading games:', error);
-        this.games = [];
+      error: (error: Error) => {
+        this.errorMessage.set(error.message);
+        this.games.set([]);
+        this.isLoading.set(false);
       }
     });
   }
 
   filterByPlatform(platform: string) {
+    if (!platform) { this.loadGames(); return; }
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
     this.gameService.getGamesByPlatform(platform).subscribe({
       next: (data) => {
-        this.games = data;
+        this.games.set(data);
+        this.isLoading.set(false);
       },
-      error: (error) => {
-        console.error('Error filtering by platform:', error);
+      error: (error: Error) => {
+        this.errorMessage.set(error.message);
+        this.isLoading.set(false);
       }
     });
   }
 
   filterByGenre(genre: string) {
+    if (!genre) { this.loadGames(); return; }
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
     this.gameService.getGamesByCategory(genre).subscribe({
       next: (data) => {
-        this.games = data;
+        this.games.set(data);
+        this.isLoading.set(false);
       },
-      error: (error) => {
-        console.error('Error filtering by genre:', error);
+      error: (error: Error) => {
+        this.errorMessage.set(error.message);
+        this.isLoading.set(false);
       }
     });
+  }
+
+  retry() {
+    this.loadGames();
   }
 }

@@ -1,48 +1,41 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Game, GamePlatform, GameSortBy } from '../models/game.model';
 
 @Injectable({ providedIn: 'root' })
 export class GameService {
-  private baseUrl = '/api';
+  private readonly baseUrl = '/api';
 
   constructor(private http: HttpClient) {}
 
-  getAllGames(): Observable<any[]> {
-    console.log('Making request to:', `${this.baseUrl}/games`);
-    return this.http.get<any[]>(`${this.baseUrl}/games`).pipe(
-      catchError(this.handleError)
-    );
+  getAllGames(): Observable<Game[]> {
+    return this.http.get<Game[]>(`${this.baseUrl}/games`);
   }
 
-  getGamesByPlatform(platform: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/games?platform=${platform}`).pipe(
-      catchError(this.handleError)
-    );
+  getGamesByPlatform(platform: GamePlatform | string): Observable<Game[]> {
+    const params = new HttpParams().set('platform', platform);
+    return this.http.get<Game[]>(`${this.baseUrl}/games`, { params });
   }
 
-  getGamesByCategory(category: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/games?category=${category}`).pipe(
-      catchError(this.handleError)
-    );
+  getGamesByCategory(category: string): Observable<Game[]> {
+    const params = new HttpParams().set('category', category);
+    return this.http.get<Game[]>(`${this.baseUrl}/games`, { params });
   }
 
-  getGameById(id: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/game?id=${id}`).pipe(
-      catchError(this.handleError)
-    );
+  getGamesSorted(sortBy: GameSortBy): Observable<Game[]> {
+    const params = new HttpParams().set('sort-by', sortBy);
+    return this.http.get<Game[]>(`${this.baseUrl}/games`, { params });
   }
 
-  private handleError(error: HttpErrorResponse) {
-    console.error('HTTP Error:', error);
-    if (error.error instanceof ErrorEvent) {
-      // Client-side error
-      console.error('Client error:', error.error.message);
-    } else {
-      // Server-side error
-      console.error(`Server error: ${error.status}, body: ${error.error}`);
-    }
-    return throwError(() => new Error('Something went wrong; please try again later.'));
+  getGamesByPlatformAndCategory(platform: string, category: string): Observable<Game[]> {
+    let params = new HttpParams().set('platform', platform).set('category', category);
+    return this.http.get<Game[]>(`${this.baseUrl}/games`, { params });
+  }
+
+  getGameById(id: number): Observable<Game> {
+    const params = new HttpParams().set('id', String(id));
+    return this.http.get<Game>(`${this.baseUrl}/game`, { params });
   }
 }
 
