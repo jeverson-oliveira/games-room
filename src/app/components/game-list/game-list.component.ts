@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Game } from '../../models/game.model';
 import { GameService } from '../../services/game.service';
 import { FiltersComponent } from '../filters/filters.component';
@@ -7,7 +8,7 @@ import { GameCardComponent } from '../game-card/game-card.component';
 @Component({
   selector: 'app-game-list',
   standalone: true,
-  imports: [FiltersComponent, GameCardComponent],
+  imports: [FiltersComponent, GameCardComponent, RouterLink],
   templateUrl: './game-list.component.html',
   styleUrls: ['./game-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

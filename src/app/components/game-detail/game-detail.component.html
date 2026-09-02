@@ -1,0 +1,69 @@
+@if (isLoading()) {
+  <div class="state state--loading" role="status" aria-live="polite">
+    <div class="spinner"></div>
+    <p>Carregando detalhes...</p>
+  </div>
+} @else if (errorMessage()) {
+  <div class="state state--error" role="alert">
+    <p>⚠️ {{ errorMessage() }}</p>
+    <a routerLink="/jogos" class="btn">Voltar aos jogos</a>
+  </div>
+} @else if (game()) {
+  @let g = game()!;
+  <article class="detail">
+    <a routerLink="/jogos" class="detail__back">← Voltar</a>
+    <div class="detail__header">
+      <img [src]="g.thumbnail" [alt]="g.title" class="detail__thumb" loading="eager" />
+      <div class="detail__info">
+        <h2>{{ g.title }}</h2>
+        <p class="detail__short">{{ g.short_description }}</p>
+        <div class="detail__meta">
+          <span><strong>Gênero:</strong> {{ g.genre }}</span>
+          <span><strong>Plataforma:</strong> {{ g.platform }}</span>
+          <span><strong>Publisher:</strong> {{ g.publisher }}</span>
+          <span><strong>Developer:</strong> {{ g.developer }}</span>
+          <span><strong>Lançamento:</strong> {{ g.release_date }}</span>
+          @if (g.status) { <span><strong>Status:</strong> {{ g.status }}</span> }
+        </div>
+        <a [href]="g.game_url" target="_blank" rel="noopener" class="btn btn--primary">Jogar agora</a>
+        <a [href]="g.freetogame_profile_url" target="_blank" rel="noopener" class="btn">Ver no FreeToGame</a>
+      </div>
+    </div>
+
+    @if (g.description) {
+      <section class="detail__section">
+        <h3>Sobre</h3>
+        <p class="detail__description">{{ g.description }}</p>
+      </section>
+    }
+
+    @if (g.minimum_system_requirements) {
+      <section class="detail__section">
+        <h3>Requisitos mínimos</h3>
+        <ul class="detail__reqs">
+          <li><strong>OS:</strong> {{ g.minimum_system_requirements.os }}</li>
+          <li><strong>Processador:</strong> {{ g.minimum_system_requirements.processor }}</li>
+          <li><strong>Memória:</strong> {{ g.minimum_system_requirements.memory }}</li>
+          <li><strong>Gráficos:</strong> {{ g.minimum_system_requirements.graphics }}</li>
+          <li><strong>Armazenamento:</strong> {{ g.minimum_system_requirements.storage }}</li>
+        </ul>
+      </section>
+    }
+
+    @if (g.screenshots?.length) {
+      <section class="detail__section">
+        <h3>Screenshots</h3>
+        <div class="detail__screenshots">
+          @for (shot of g.screenshots; track shot.id) {
+            <img [src]="shot.image" [alt]="g.title + ' screenshot ' + shot.id" loading="lazy" />
+          }
+        </div>
+      </section>
+    }
+  </article>
+} @else {
+  <div class="state state--empty">
+    <p>Jogo não encontrado.</p>
+    <a routerLink="/jogos" class="btn">Voltar</a>
+  </div>
+}
