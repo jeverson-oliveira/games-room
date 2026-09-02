@@ -15,6 +15,6 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       // Centralized logging - could be replaced by a LoggerService
       console.error('[HTTP Error]', { url: req.url, status: error.status, message, error });
       return throwError(() => new Error(message));
-    })
+    }),
   );
 };

@@ -1,12 +1,18 @@
 @keyframes pulse-glow {
   0% {
-    box-shadow: 0 0 10px #0ff, 0 0 20px #0ff inset;
+    box-shadow:
+      0 0 10px #0ff,
+      0 0 20px #0ff inset;
   }
   50% {
-    box-shadow: 0 0 20px #0ff, 0 0 30px #0ff inset;
+    box-shadow:
+      0 0 20px #0ff,
+      0 0 30px #0ff inset;
   }
   100% {
-    box-shadow: 0 0 10px #0ff, 0 0 20px #0ff inset;
+    box-shadow:
+      0 0 10px #0ff,
+      0 0 20px #0ff inset;
   }
 }
 
@@ -19,7 +25,9 @@
   max-width: 420px;
   height: 380px;
   box-shadow: 0 0 10px #0ff;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
   animation: pulse-glow 3s infinite ease-in-out;
 
   display: flex;
@@ -65,6 +73,8 @@
 
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 0 15px #0ff, 0 0 20px #0ff inset;
+    box-shadow:
+      0 0 15px #0ff,
+      0 0 20px #0ff inset;
   }
 }

@@ -29,7 +29,7 @@ export class GameService {
   }
 
   getGamesByPlatformAndCategory(platform: string, category: string): Observable<Game[]> {
-    let params = new HttpParams().set('platform', platform).set('category', category);
+    const params = new HttpParams().set('platform', platform).set('category', category);
     return this.http.get<Game[]>(`${this.baseUrl}/games`, { params });
   }
 
@@ -38,4 +38,3 @@ export class GameService {
     return this.http.get<Game>(`${this.baseUrl}/game`, { params });
   }
 }
-

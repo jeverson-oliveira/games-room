@@ -11,7 +11,7 @@ import { GameCardComponent } from '../game-card/game-card.component';
   imports: [FiltersComponent, GameCardComponent, RouterLink],
   templateUrl: './game-list.component.html',
   styleUrls: ['./game-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GameListComponent implements OnInit {
   private allGames = signal<Game[]>([]);
@@ -25,10 +25,10 @@ export class GameListComponent implements OnInit {
     const search = this.filterState().search.toLowerCase();
     if (!search) return this.allGames();
     return this.allGames().filter(
-      g =>
+      (g) =>
         g.title.toLowerCase().includes(search) ||
         g.genre.toLowerCase().includes(search) ||
-        g.platform.toLowerCase().includes(search)
+        g.platform.toLowerCase().includes(search),
     );
   });
 
@@ -87,12 +87,12 @@ export class GameListComponent implements OnInit {
         this.errorMessage.set(error.message);
         this.allGames.set([]);
         this.isLoading.set(false);
-      }
+      },
     });
   }
 
   loadMore() {
-    this.visibleCount.update(c => c + this.pageSize);
+    this.visibleCount.update((c) => c + this.pageSize);
   }
 
   clearFilters() {

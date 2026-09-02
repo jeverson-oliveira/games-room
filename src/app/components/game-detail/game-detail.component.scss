@@ -11,7 +11,10 @@
   color: #0ff;
   text-decoration: none;
   font-weight: bold;
-  &:hover { text-decoration: underline; text-shadow: 0 0 6px #0ff; }
+  &:hover {
+    text-decoration: underline;
+    text-shadow: 0 0 6px #0ff;
+  }
 }
 
 .detail__header {
@@ -22,7 +25,7 @@
   border: 2px solid #0ff;
   border-radius: 10px;
   padding: 1.5rem;
-  box-shadow: 0 0 10px rgba(0,255,255,0.2);
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
 }
 
 .detail__thumb {
@@ -36,10 +39,17 @@
   flex-direction: column;
   gap: 0.8rem;
 
-  h2 { color: #0ff; font-size: 1.6rem; text-shadow: 0 0 6px #0ff; }
+  h2 {
+    color: #0ff;
+    font-size: 1.6rem;
+    text-shadow: 0 0 6px #0ff;
+  }
 }
 
-.detail__short { color: #ccc; line-height: 1.5; }
+.detail__short {
+  color: #ccc;
+  line-height: 1.5;
+}
 
 .detail__meta {
   display: flex;
@@ -56,7 +66,10 @@
   border-radius: 8px;
   padding: 1.5rem;
 
-  h3 { color: #0ff; margin-bottom: 1rem; }
+  h3 {
+    color: #0ff;
+    margin-bottom: 1rem;
+  }
 }
 
 .detail__description {
@@ -78,7 +91,11 @@
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1rem;
 
-  img { width: 100%; border-radius: 6px; border: 1px solid #222; }
+  img {
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid #222;
+  }
 }
 
 .btn {
@@ -92,13 +109,19 @@
   text-decoration: none;
   font-weight: bold;
   transition: 0.3s;
-  &:hover { background: #0ff; color: #000; box-shadow: 0 0 12px #0ff; }
+  &:hover {
+    background: #0ff;
+    color: #000;
+    box-shadow: 0 0 12px #0ff;
+  }
 }
 
 .btn--primary {
   background: #0ff;
   color: #000;
-  &:hover { background: #00e6e6; }
+  &:hover {
+    background: #00e6e6;
+  }
 }
 
 .state {
@@ -109,19 +132,28 @@
   color: #0ff;
   gap: 1rem;
   text-align: center;
-  p { color: #ccc; }
+  p {
+    color: #ccc;
+  }
 }
 
 .state--loading .spinner {
-  width: 36px; height: 36px;
+  width: 36px;
+  height: 36px;
   border: 3px solid #222;
   border-top-color: #0ff;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
 
-@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 @media (max-width: 720px) {
-  .detail__header { grid-template-columns: 1fr; }
+  .detail__header {
+    grid-template-columns: 1fr;
+  }
 }

@@ -1,44 +1,46 @@
 <app-filters
   (filtersChange)="onFiltersChange($event)"
   (platformSelected)="filterByPlatform($event)"
-  (genreSelected)="filterByGenre($event)">
+  (genreSelected)="filterByGenre($event)"
+>
 </app-filters>
 
 @if (isLoading()) {
-  <div class="state state--loading" role="status" aria-live="polite">
-    <div class="spinner" aria-hidden="true"></div>
-    <p>Carregando jogos...</p>
-    <div class="skeleton-grid">
-      @for (i of [1,2,3,4,5,6]; track i) {
-        <div class="skeleton-card"></div>
-      }
-    </div>
-  </div>
-} @else if (errorMessage()) {
-  <div class="state state--error" role="alert">
-    <p>⚠️ {{ errorMessage() }}</p>
-    <button (click)="retry()">Tentar novamente</button>
-  </div>
-} @else if (filteredGames().length === 0) {
-  <div class="state state--empty">
-    <p>Nenhum jogo encontrado para este filtro.</p>
-    <button (click)="clearFilters()">Limpar filtros</button>
-  </div>
-} @else {
-  <div class="game-list__meta" aria-live="polite">
-    <span>{{ totalFiltered() }} jogos encontrados</span>
-    @if (filterState().search) { <span> — busca: "{{ filterState().search }}"</span> }
-  </div>
-  <div class="game-list">
-    @for (game of games(); track game.id) {
-      <div [routerLink]="['/game', game.id]" class="game-list__link">
-        <app-game-card [game]="game"></app-game-card>
-      </div>
+<div class="state state--loading" role="status" aria-live="polite">
+  <div class="spinner" aria-hidden="true"></div>
+  <p>Carregando jogos...</p>
+  <div class="skeleton-grid">
+    @for (i of [1,2,3,4,5,6]; track i) {
+    <div class="skeleton-card"></div>
     }
   </div>
-  @if (canLoadMore()) {
-    <div class="game-list__more">
-      <button (click)="loadMore()">Carregar mais ({{ totalFiltered() - visibleCount() }} restantes)</button>
-    </div>
+</div>
+} @else if (errorMessage()) {
+<div class="state state--error" role="alert">
+  <p>⚠️ {{ errorMessage() }}</p>
+  <button (click)="retry()">Tentar novamente</button>
+</div>
+} @else if (filteredGames().length === 0) {
+<div class="state state--empty">
+  <p>Nenhum jogo encontrado para este filtro.</p>
+  <button (click)="clearFilters()">Limpar filtros</button>
+</div>
+} @else {
+<div class="game-list__meta" aria-live="polite">
+  <span>{{ totalFiltered() }} jogos encontrados</span>
+  @if (filterState().search) { <span> — busca: "{{ filterState().search }}"</span> }
+</div>
+<div class="game-list">
+  @for (game of games(); track game.id) {
+  <div [routerLink]="['/game', game.id]" class="game-list__link">
+    <app-game-card [game]="game"></app-game-card>
+  </div>
   }
-}
+</div>
+@if (canLoadMore()) {
+<div class="game-list__more">
+  <button (click)="loadMore()">
+    Carregar mais ({{ totalFiltered() - visibleCount() }} restantes)
+  </button>
+</div>
+} }

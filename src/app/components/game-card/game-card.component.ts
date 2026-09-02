@@ -6,7 +6,7 @@ import { Game } from '../../models/game.model';
   standalone: true,
   templateUrl: './game-card.component.html',
   styleUrls: ['./game-card.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GameCardComponent {
   @Input({ required: true }) game!: Game;

@@ -5,45 +5,63 @@
   </header>
 
   @if (saved()) {
-    <div class="settings__toast" role="status">✓ Salvo!</div>
+  <div class="settings__toast" role="status">✓ Salvo!</div>
   }
 
   <div class="settings__card">
     <h3>Tema</h3>
     <div class="settings__row">
       <label>
-        <input type="radio" name="theme" value="neon-dark" [checked]="theme() === 'neon-dark'" (change)="onThemeChange('neon-dark')" />
+        <input
+          type="radio"
+          name="theme"
+          value="neon-dark"
+          [checked]="theme() === 'neon-dark'"
+          (change)="onThemeChange('neon-dark')"
+        />
         Neon Dark (padrão)
       </label>
       <label>
-        <input type="radio" name="theme" value="neon-light" [checked]="theme() === 'neon-light'" (change)="onThemeChange('neon-light')" />
+        <input
+          type="radio"
+          name="theme"
+          value="neon-light"
+          [checked]="theme() === 'neon-light'"
+          (change)="onThemeChange('neon-light')"
+        />
         Neon Light
       </label>
     </div>
-    <p class="settings__hint">Aplicado via <code>data-theme</code> no &lt;html&gt; e salvo em localStorage.</p>
+    <p class="settings__hint">
+      Aplicado via <code>data-theme</code> no &lt;html&gt; e salvo em localStorage.
+    </p>
   </div>
 
   <div class="settings__card">
     <h3>Filtros padrão</h3>
     <div class="settings__grid">
-      <label>Plataforma padrão
+      <label
+        >Plataforma padrão
         <select [ngModel]="defaultPlatform()" (ngModelChange)="onPlatformChange($event)">
           <option value="">Nenhum</option>
           @for (p of platforms.slice(1); track p) {
-            <option [value]="p">{{ p }}</option>
+          <option [value]="p">{{ p }}</option>
           }
         </select>
       </label>
-      <label>Gênero padrão
+      <label
+        >Gênero padrão
         <select [ngModel]="defaultGenre()" (ngModelChange)="onGenreChange($event)">
           <option value="">Nenhum</option>
           @for (g of genres.slice(1); track g) {
-            <option [value]="g">{{ g }}</option>
+          <option [value]="g">{{ g }}</option>
           }
         </select>
       </label>
     </div>
-    <p class="settings__hint">Usado para pré-preencher filtros em <strong>Jogos</strong> (próxima etapa: auto-aplicar).</p>
+    <p class="settings__hint">
+      Usado para pré-preencher filtros em <strong>Jogos</strong> (próxima etapa: auto-aplicar).
+    </p>
   </div>
 
   <div class="settings__card settings__card--danger">

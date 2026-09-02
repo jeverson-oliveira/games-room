@@ -22,14 +22,17 @@ interface GameDetail extends Game {
   imports: [RouterLink],
   templateUrl: './game-detail.component.html',
   styleUrl: './game-detail.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GameDetailComponent implements OnInit {
   game = signal<GameDetail | null>(null);
   isLoading = signal(true);
   errorMessage = signal<string | null>(null);
 
-  constructor(private route: ActivatedRoute, private gameService: GameService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private gameService: GameService,
+  ) {}
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -46,7 +49,7 @@ export class GameDetailComponent implements OnInit {
       error: (err: Error) => {
         this.errorMessage.set(err.message);
         this.isLoading.set(false);
-      }
+      },
     });
   }
 }

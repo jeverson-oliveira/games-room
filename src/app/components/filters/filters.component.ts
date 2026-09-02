@@ -12,7 +12,7 @@ export interface FilterState {
   standalone: true,
   imports: [FormsModule],
   templateUrl: './filters.component.html',
-  styleUrls: ['./filters.component.scss']
+  styleUrls: ['./filters.component.scss'],
 })
 export class FiltersComponent implements OnInit {
   @Input() initialPlatform = '';
@@ -33,7 +33,8 @@ export class FiltersComponent implements OnInit {
   private searchDebounce?: ReturnType<typeof setTimeout>;
 
   ngOnInit() {
-    const storedPlatform = this.initialPlatform || localStorage.getItem('games-room:default-platform') || '';
+    const storedPlatform =
+      this.initialPlatform || localStorage.getItem('games-room:default-platform') || '';
     const storedGenre = this.initialGenre || localStorage.getItem('games-room:default-genre') || '';
     this.platform.set(storedPlatform);
     this.genre.set(storedGenre);
@@ -77,7 +78,7 @@ export class FiltersComponent implements OnInit {
     this.filtersChange.emit({
       platform: this.platform(),
       genre: this.genre(),
-      search: this.search().trim().toLowerCase()
+      search: this.search().trim().toLowerCase(),
     });
   }
 }

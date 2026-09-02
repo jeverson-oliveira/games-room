@@ -12,7 +12,7 @@ const DEFAULT_GENRE_KEY = 'games-room:default-genre';
   imports: [FormsModule],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SettingsComponent implements OnInit {
   theme = signal<Theme>('neon-dark');

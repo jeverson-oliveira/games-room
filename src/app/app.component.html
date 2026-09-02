@@ -1,10 +1,10 @@
 <header class="navbar">
-  <a class="logo" routerLink="/jogos">
-    🕹️ <span>GAMER.IO</span>
-  </a>
+  <a class="logo" routerLink="/jogos"> 🕹️ <span>GAMER.IO</span> </a>
 
   <nav class="nav-links">
-    <a routerLink="/jogos" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><span>🎮</span> Jogos</a>
+    <a routerLink="/jogos" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+      ><span>🎮</span> Jogos</a
+    >
     <a routerLink="/em-alta" routerLinkActive="active"><span>🔥</span> Em Alta</a>
     <a routerLink="/configuracoes" routerLinkActive="active"><span>⚙️</span> Configurações</a>
     <a routerLink="/sobre" routerLinkActive="active"><span>❓</span> Sobre</a>
@@ -14,4 +14,3 @@
 <main class="main-content">
   <router-outlet />
 </main>
-

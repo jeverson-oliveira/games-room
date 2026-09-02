@@ -10,7 +10,7 @@ import { GameCardComponent } from '../game-card/game-card.component';
   imports: [GameCardComponent, RouterLink],
   templateUrl: './trending.component.html',
   styleUrl: './trending.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TrendingComponent implements OnInit {
   games = signal<Game[]>([]);
@@ -34,7 +34,7 @@ export class TrendingComponent implements OnInit {
       error: (err: Error) => {
         this.errorMessage.set(err.message);
         this.isLoading.set(false);
-      }
+      },
     });
   }
 

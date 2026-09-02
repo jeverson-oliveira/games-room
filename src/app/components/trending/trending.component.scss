@@ -41,7 +41,9 @@
   gap: 1rem;
   text-align: center;
 
-  p { color: #ccc; }
+  p {
+    color: #ccc;
+  }
 
   button {
     background: #0ff;
@@ -51,7 +53,10 @@
     padding: 0.6rem 1.2rem;
     border-radius: 6px;
     cursor: pointer;
-    &:hover { background: #00e6e6; box-shadow: 0 0 12px #0ff; }
+    &:hover {
+      background: #00e6e6;
+      box-shadow: 0 0 12px #0ff;
+    }
   }
 }
 
@@ -81,8 +86,16 @@
   animation: shimmer 1.4s ease infinite;
 }
 
-@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 @keyframes shimmer {
-  0% { background-position: 100% 0; }
-  100% { background-position: -100% 0; }
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
 }
