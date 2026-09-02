@@ -2,13 +2,17 @@
   <label>Plataforma:</label>
   <select (change)="onPlatformChange($event)">
     <option disabled selected>Escolha uma plataforma</option>
-    <option *ngFor="let p of platforms" [value]="p">{{ p }}</option>
+    @for (p of platforms; track p) {
+      <option [value]="p">{{ p }}</option>
+    }
   </select>
 
   <label>Gênero:</label>
   <select (change)="onGenreChange($event)">
     <option disabled selected>Escolha um gênero</option>
-    <option *ngFor="let g of genres" [value]="g">{{ g }}</option>
+    @for (g of genres; track g) {
+      <option [value]="g">{{ g }}</option>
+    }
   </select>
 </div>
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { GameService } from '../../services/game.service';
 import { FiltersComponent } from '../filters/filters.component';
 import { GameCardComponent } from '../game-card/game-card.component';
@@ -7,7 +7,7 @@ import { GameCardComponent } from '../game-card/game-card.component';
 @Component({
   selector: 'app-game-list',
   standalone: true,
-  imports: [CommonModule, FiltersComponent, GameCardComponent ],
+  imports: [FiltersComponent, GameCardComponent],
   templateUrl: './game-list.component.html',
   styleUrls: ['./game-list.component.scss']
 })
