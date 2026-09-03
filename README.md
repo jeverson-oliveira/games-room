@@ -1,59 +1,75 @@
-# GamesRoom
+# Games Room — GAMER.IO
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.9.
+Catálogo SPA de jogos free-to-play em **Angular 20** consumindo a [FreeToGame API](https://www.freetogame.com/api-doc). Filtros combináveis, busca com debounce, paginação, páginas em destaque e detalhes.
 
-## Development server
+**Live:** https://jeverson-oliveira.github.io/games-room/ · **Repo:** https://github.com/jeverson-oliveira/games-room
 
-To start a local development server, run:
+![Angular](https://img.shields.io/badge/Angular-20-DD0031?logo=angular)
+![Tests](https://img.shields.io/badge/tests-41%20passing-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-blue)
 
-```bash
-ng serve
-```
+## ✨ Features
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- **Jogos** com filtros combináveis plataforma (`pc`/`browser`) + gênero (`shooter`, `moba`, `mmorpg`...) + busca por nome (debounce 300ms) + paginação 24/iteração
+- **Em Alta** ordenado por `sort-by=popularity` via `GameService.getGamesSorted()`
+- **Detalhe** `/game/:id` com screenshots, requisitos mínimos e links externos
+- **Configurações** tema (`neon-dark`/`neon-light` via `data-theme`) e filtros padrão persistidos em `localStorage`
+- **Sobre** stack e documentação da API
+- Estados `loading` (spinner + skeleton), `error` (interceptor centralizado) e `empty` com `@if`/`@for` (`track game.id`) e `OnPush`
+- Navegação lazy (`loadComponent`) com `RouterOutlet` + `404.html` fallback para GitHub Pages
 
-## Code scaffolding
+## 🧱 Stack
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Angular 20 (Standalone + Signals + Control Flow), RxJS 7, SCSS neon (Orbitron), HttpClient + `errorInterceptor`, `HttpParams`, Jasmine/Karma, ESLint (`angular-eslint`) + Prettier, GitHub Actions CI.
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+## 🚀 Quick Start
 
 ```bash
-ng build
+nvm use 22 # Node 20.19+ / 22.11+ / 24.3+ — Angular 20
+npm ci
+npm start          # ng serve --proxy-config proxy.conf.json → http://localhost:4200/
+npm run build      # production → dist/games-room/browser
+npm test           # ng test --watch=false --browsers=ChromeHeadless
+npm run lint       # ng lint
+npm run format     # prettier --write
+npm run deploy     # build --base-href /games-room/ → docs/ + 404.html (Pages source: /docs)
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Proxy dev `proxy.conf.json` → `https://www.freetogame.com` para `GET /api/games`. Em produção usa `src/environments/environment.prod.ts` com `apiUrl: 'https://www.freetogame.com/api'` via `fileReplacements`.
 
-## Running unit tests
+## 🔌 API
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
+```
+GET /api/games                          # lista
+GET /api/games?platform=pc              # filtro plataforma
+GET /api/games?category=shooter         # filtro gênero
+GET /api/games?platform=pc&category=moba
+GET /api/games?sort-by=popularity       # Em Alta
+GET /api/game?id=452                    # detalhe
 ```
 
-## Running end-to-end tests
+## 📁 Estrutura
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
+```
+src/app/
+ ├─ models/game.model.ts
+ ├─ services/game.service.ts
+ ├─ interceptors/error.interceptor.ts
+ ├─ components/{game-list,game-card,filters,trending,game-detail,settings,about}
+ ├─ app.routes.ts (lazy)
+ └─ app.component.ts (RouterOutlet + theme)
+src/environments/{environment.ts,environment.prod.ts}
+public/favicon.ico (neon gamepad)
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 🧪 Testes
 
-## Additional Resources
+41 specs (Jasmine/Karma): `GameService` (`HttpTestingController`), `GameList` (signals + paginação), `Filters` (debounce + localStorage), `Trending`, `GameDetail` (`ActivatedRoute` mock), `Settings`, `About`, `errorInterceptor`, `AppComponent`, `GameCard`. `ChromeHeadless` no CI.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 📦 Deploy (GitHub Pages)
+
+`angular.json` `outputPath dist/games-room` + `fileReplacements` prod. `npm run deploy` copia `dist/.../browser` → `docs/` + `cp index.html 404.html` + `touch .nojekyll`. Ative Pages em `Settings > Pages > Source: main /docs`.
+
+## 📄 Licença
+
+MIT
